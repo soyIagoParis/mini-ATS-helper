@@ -7,17 +7,36 @@ Ubicación: Madrid, España (Posición 100% Remota)"""
 
 import nltk
 import pprint
-string = "GeeksForGeeks is the best best Computer Science Portal ."
-words = nltk.word_tokenize(example_string)
-print()
-print("Word list:")
-print(words)
-print()
+nltk.download("stopwords")
 
+language = "spanish" # TODO: autodetect language
+tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # remove punctuation
+words = tokenizer.tokenize(example_string)
+
+print("\nWords list:\n\n" + str(words) + "\n")
+
+
+from nltk.corpus import stopwords
+ 
+stop_words = set(stopwords.words(language))
+ 
+
+# excludes the stop words
+meaningful_words = []
+
+for word in words:
+    if word.lower() not in stop_words:
+        meaningful_words.append(word)
+ 
+print("\nMeaningful words list:\n\n" + str(meaningful_words) + "\n")
+
+
+
+# Get duplicates list and count
 seen = set()
 duplicates = {}
 
-for word in words:    
+for word in meaningful_words:    
     if word in seen:
         if word in duplicates:
             duplicates[word] += 1
@@ -26,7 +45,7 @@ for word in words:
     else:
         seen.add(word)
 
-print()
-print("Duplicate list:")
+# TODO: Sort dic by count
+print("\nDuplicate list:\n")
 pprint.pprint(duplicates)
-print()
+print("\n")
