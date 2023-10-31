@@ -6,6 +6,27 @@ Ubicación: Madrid, España (Posición 100% Remota)"""
 
 
 import nltk
+import pprint
 string = "GeeksForGeeks is the best best Computer Science Portal ."
 words = nltk.word_tokenize(example_string)
+print()
+print("Word list:")
 print(words)
+print()
+
+seen = set()
+duplicates = {}
+
+for word in words:    
+    if word in seen:
+        if word in duplicates:
+            duplicates[word] += 1
+        else:
+            duplicates[word] = 1
+    else:
+        seen.add(word)
+
+print()
+print("Duplicate list:")
+pprint.pprint(duplicates)
+print()
