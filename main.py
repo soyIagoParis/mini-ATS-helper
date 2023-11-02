@@ -73,11 +73,16 @@ for word in meaningful_words:
         if word in duplicates:
             duplicates[word] += 1
         else:
-            duplicates[word] = 1
+            duplicates[word] = 2
     else:
         seen.add(word)
 
-# TODO: Sort dic by count
+# Sort dictionary by descending duplicate count
+sorted_duplicates = sorted(duplicates.items(), key=lambda key_value_pair: key_value_pair[1], reverse=True)
+# Output is a list so reconvert to dict
+sorted_duplicates = dict(sorted_duplicates)
+
+
 print("\nDuplicate list:\n")
-pprint.pprint(duplicates)
+pprint.pprint(sorted_duplicates, sort_dicts=False)
 print("\n")
