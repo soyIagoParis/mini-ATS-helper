@@ -48,45 +48,8 @@ Si te apasiona la programación en Python y estás interesado/a en formar parte 
 """
 
 import nltk
-import pprint
-from nltk.corpus import stopwords
+from pprint import pprint
 from langdetect import detect
-# nltk.download("stopwords")
-
-# TODO: Include two-pair words
-# TODO: prompt asking for string
-# TODO: highlight capitalized words
-
-capital_words = []
-words_punctuated = nltk.tokenize.word_tokenize(big_example_string)
-word_iterator = iter(words_punctuated)
-for word in word_iterator:
-    if word == ".":
-        next(word_iterator, None)
-        continue
-    if word[0].isupper():
-        capital_words.append(word)
-
-print(capital_words)
-
-tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
-words = tokenizer.tokenize(big_example_string)
-
-language_code = detect(big_example_string)
-language_dic = {'es':'spanish', 'en':'english'}
-stop_words = set(stopwords.words(language_dic[language_code]))
- 
-
-# Excludes the stop words
-meaningful_words = []
-
-for word in words:
-    if word.lower() not in stop_words:
-        meaningful_words.append(word)
- 
-word_pairs = [meaningful_words[i - 1] + " " + meaningful_words[i] for i in range(len(meaningful_words))]
-
-
 
 # Returns the duplicates of a list and the number of times said duplicates appear on the list.
 # Info returned as a dictionary {duplicate:times}.
@@ -110,12 +73,51 @@ def get_duplicates_and_count(list):
     return dict(sorted_duplicates)
 
 
+
+# TODO: prompt asking for string
+# TODO: exclude words after !, ? or emoji
+
+capital_words = []
+words_punctuated = nltk.tokenize.word_tokenize(big_example_string)
+word_iterator = iter(words_punctuated)
+for word in word_iterator:
+    if word == ".":
+        next(word_iterator, None)
+        continue
+    if word[0].isupper():
+        capital_words.append(word)
+
+print(capital_words)
+
+tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
+words = tokenizer.tokenize(big_example_string)
+
+language_code = detect(big_example_string)
+language_dic = {'es':'spanish', 'en':'english'}
+stop_words = set(nltk.corpus.stopwords.words(language_dic[language_code]))
+ 
+
+# Excludes the stop words
+meaningful_words = []
+
+for word in words:
+    if word.lower() not in stop_words:
+        meaningful_words.append(word)
+ 
+word_pairs = [meaningful_words[i - 1] + " " + meaningful_words[i] for i in range(len(meaningful_words))]
+word_triads = [meaningful_words[i - 2] + " " + meaningful_words[i - 1] + " " + meaningful_words[i] for i in range(len(meaningful_words))]
+
 duplicate_words = get_duplicates_and_count(meaningful_words)
 print("\nDuplicate list:\n")
-pprint.pprint(duplicate_words, sort_dicts=False)
+pprint(duplicate_words, sort_dicts=False)
 print("\n")
 
 duplicate_pairs = get_duplicates_and_count(word_pairs)
 print("\nPair duplicate list:\n")
-pprint.pprint(duplicate_pairs, sort_dicts=False)
+pprint(duplicate_pairs, sort_dicts=False)
+print("\n")
+
+duplicate_triads = get_duplicates_and_count(word_triads)
+print("\nTriad duplicate list:\n")
+pprint(duplicate_triads, sort_dicts=False)
 print("\n")
