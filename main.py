@@ -57,6 +57,18 @@ from langdetect import detect
 # TODO: prompt asking for string
 # TODO: highlight capitalized words
 
+capital_words = []
+words_punctuated = nltk.tokenize.word_tokenize(big_example_string)
+word_iterator = iter(words_punctuated)
+for word in word_iterator:
+    if word == ".":
+        next(word_iterator, None)
+        continue
+    if word[0].isupper():
+        capital_words.append(word)
+
+print(capital_words)
+
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
 words = tokenizer.tokenize(big_example_string)
 
