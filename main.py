@@ -1,88 +1,109 @@
 big_example_string = """
-En Futura VIVE, somos una empresa líder en la fabricación de Robótica Social dotada de Inteligencia Artificial, Holografía, y soluciones de Realidad Aumentada y Realidad Virtual. Nuestra misión es ayudar a empresas y a la sociedad en general a mejorar gracias a la tecnología y la innovación. Estamos buscando un Programador Python altamente talentoso y motivado para unirse a nuestro equipo de desarrollo y contribuir a la creación de soluciones tecnológicas de vanguardia.
-Tareas
 
-    Desarrollar y mantener aplicaciones y sistemas basados en Python para la mejora de la interacción entre humanos y robots.
-    Colaborar estrechamente con los equipos de ingeniería en la implementación de soluciones de IA y robótica social.
-    Participar en el diseño, desarrollo y optimización de algoritmos y modelos de aprendizaje automático.
-    Realizar pruebas de software y depuración para garantizar el rendimiento y la estabilidad de las aplicaciones.
-    Mantenerse actualizado sobre las mejores prácticas de programación y las últimas tendencias en tecnología.
+Descripción
+SG Tech 😎
+
+
+¡Hola! En SG Tech estamos buscando a una persona talentosa y apasionada por el desarrollo de software para unirse a nuestro equipo como Desarrollador/a Python. Si te encanta programar en Python, tienes experiencia en el área de Inteligencia Artificial y estás interesado en trabajar en un ambiente remoto, ¡esta oportunidad es para ti! 😉✨
+
+
+Acerca de nosotros 🏢
+
+
+SG Tech es una empresa líder en el campo de la tecnología, especializada en soluciones innovadoras basadas en algoritmos y sistemas inteligentes. Nos enorgullece brindar a nuestros clientes las mejores soluciones de software, enfocándonos en la usabilidad, la eficiencia y la escalabilidad. Trabajamos en estrecha colaboración con nuestros clientes para desarrollar soluciones a medida que impulsen su éxito en el mercado.
+
+
+Responsabilidades laborales 🤓
+
+
+    Desarrollar y mantener aplicaciones utilizando Python y otros lenguajes de programación según sea necesario.
+    Colaborar con el equipo de desarrollo para diseñar soluciones efectivas y escalables.
+    Participar activamente en la implementación de proyectos relacionados con Inteligencia Artificial.
+    Realizar pruebas y depurar código para garantizar el rendimiento y la calidad del software.
+    Mantenerse actualizado/a con las últimas tendencias y avances en el campo.
+
+
+¿Qué ofrecemos? 🌟
+
+
+    Oportunidad de trabajar en proyectos emocionantes y desafiantes relacionados con Inteligencia Artificial.
+    Colaboración con un equipo de profesionales altamente calificados y apasionados.
+    Posibilidad de aprendizaje y crecimiento continuo en un entorno innovador.
+    Horario: L-J: 9-19h V: 9-15h Jornada intensiva verano.
+    Proyecto en remoto 100%.
+    Salario competitivo acorde a tu experiencia y habilidades.
 
 Requisitos
 
-    Experiencia demostrable en programación Python.
-    Conocimiento de bibliotecas y frameworks de Python, como TensorFlow y PyTorch.
-    Familiaridad con la programación orientada a objetos y diseño de software.
-    Habilidad para resolver problemas de manera efectiva y trabajar en equipo.
-    Pasión por la tecnología y la innovación.
+    Experiencia mínima de 2 años como Desarrollador/a Python.
+    Experto/a en lenguajes de programación orientados a objetos, especialmente Java y Python.
+    Conocimientos y experiencia en temas relacionados con Inteligencia Artificial, como Machine Learning y IA Generativa.
+    Capacidad para trabajar de forma remota sin supervisión constante.
 
-Beneficios
 
-    Oportunidad de trabajar en un entorno altamente innovador y tecnológico.
-    Colaboración con un equipo multidisciplinario de profesionales apasionados por la tecnología.
-    Desarrollo profesional y oportunidades de aprendizaje continuo.
-    Salario competitivo y paquete de beneficios atractivo.
-    Contribución a la misión de Futura VIVE de mejorar la sociedad a través de la tecnología.
+Si te apasiona la programación en Python y estás interesado/a en formar parte de nuestro equipo, ¡no dudes en postularte para este emocionante puesto! 😃🚀 Envíanos tu CV actualizado y una breve descripción de tus proyectos anteriores.
 
-Si eres un apasionado de la programación Python y deseas formar parte de un equipo que impulsa la innovación en robótica y tecnología, te invitamos a unirte a nosotros. Futura VIVE es un lugar donde tus habilidades y creatividad pueden prosperar, y donde puedes contribuir a proyectos que hacen una diferencia real. ¡Esperamos recibir tu solicitud y conocer tu talento!
+
+¡Esperamos poder conocerte y dar el próximo paso en tu carrera profesional juntos! 👍🔥
 """
-
-example_string = """Desarrollador Python - Inteligencia Artificial
-
-Craftercode busca un desarrollador senior con experiencia en lenguajes de programación orientados a objetos, especialmente Java y Python. Valoramos la experiencia en proyectos relacionados con la inteligencia artificial, incluyendo Machine Learning, Inteligencia Artificial Generativa y Procesamiento de Lenguaje Natural (NLP).
-
-Ubicación: Madrid, España (Posición 100% Remota)"""
-
 
 import nltk
 import pprint
+from nltk.corpus import stopwords
+from langdetect import detect
 # nltk.download("stopwords")
 
+# TODO: Include two-pair words
+# TODO: prompt asking for string
+# TODO: highlight capitalized words
 
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
 words = tokenizer.tokenize(big_example_string)
-
-print("\nWords list:\n\n" + str(words) + "\n")
-
-
-from nltk.corpus import stopwords
-from langdetect import detect
 
 language_code = detect(big_example_string)
 language_dic = {'es':'spanish', 'en':'english'}
 stop_words = set(stopwords.words(language_dic[language_code]))
  
 
-# excludes the stop words
+# Excludes the stop words
 meaningful_words = []
 
 for word in words:
     if word.lower() not in stop_words:
         meaningful_words.append(word)
  
-print("\nMeaningful words list:\n\n" + str(meaningful_words) + "\n")
+word_pairs = [meaningful_words[i - 1] + " " + meaningful_words[i] for i in range(len(meaningful_words))]
 
 
 
-# Get duplicates list and count
-seen = set()
-duplicates = {}
+# Returns the duplicates of a list and the number of times said duplicates appear on the list.
+# Info returned as a dictionary {duplicate:times}.
+def get_duplicates_and_count(list):
+    seen = set()
+    duplicates = {}
 
-for word in meaningful_words:    
-    if word in seen:
-        if word in duplicates:
-            duplicates[word] += 1
+    for item in list:    
+        if item in seen:
+            if item in duplicates:
+                duplicates[item] += 1
+            else:
+                duplicates[item] = 2
         else:
-            duplicates[word] = 2
-    else:
-        seen.add(word)
-
-# Sort dictionary by descending duplicate count
-sorted_duplicates = sorted(duplicates.items(), key=lambda key_value_pair: key_value_pair[1], reverse=True)
-# Output is a list so reconvert to dict
-sorted_duplicates = dict(sorted_duplicates)
+            seen.add(item)
 
 
+    # Sort dictionary by descending duplicate count
+    sorted_duplicates = sorted(duplicates.items(), key=lambda key_value_pair: key_value_pair[1], reverse=True)
+    # Output is a list so reconvert to dict
+    return dict(sorted_duplicates)
+
+
+duplicate_words = get_duplicates_and_count(meaningful_words)
 print("\nDuplicate list:\n")
-pprint.pprint(sorted_duplicates, sort_dicts=False)
+pprint.pprint(duplicate_words, sort_dicts=False)
+print("\n")
+
+duplicate_pairs = get_duplicates_and_count(word_pairs)
+print("\nPair duplicate list:\n")
+pprint.pprint(duplicate_pairs, sort_dicts=False)
 print("\n")
