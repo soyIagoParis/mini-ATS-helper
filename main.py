@@ -52,6 +52,7 @@ from pprint import pprint
 from langdetect import detect
 import re
 
+# --- FUNCTIONS ---
 # Returns the duplicates of a list and the number of times said duplicates appear on the list.
 # Info returned as a dictionary {duplicate:times}.
 def get_duplicates_and_count(list):
@@ -73,20 +74,37 @@ def get_duplicates_and_count(list):
     # Output is a list so reconvert to dict
     return dict(sorted_duplicates)
 
+# Returns a list of uppercased words not beacuse of punctuation that only appear one time on the text
+def get_unique_names(list_of_words, list_of_duplicates):
+    names = set()
+    word_iterator = iter(list_of_words)
+    punctuation_and_emoji_regex = "(\.|\?|\!|\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])+"
+    for word in word_iterator:
+        if re.search(punctuation_and_emoji_regex, word):
+            next(word_iterator, None)
+            continue
+        if word[0].isupper():
+            names.add(word)
 
+    unique_names = []
+    for name in names:
+        if name not in list_of_duplicates:
+            unique_names.append(name)
+
+
+# --- END OF FUNCTIONS ---
 
 # TODO: prompt asking for string
 
-
-
+# Processing of the input string
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
 words = tokenizer.tokenize(big_example_string)
+words_punctuated = nltk.tokenize.word_tokenize(big_example_string) # Two-tokenizations, can I tokenize and then remove punctuation?
 
 language_code = detect(big_example_string)
 language_dic = {'es':'spanish', 'en':'english'}
 stop_words = set(nltk.corpus.stopwords.words(language_dic[language_code]))
  
-
 # Excludes the stop words
 meaningful_words = []
 
@@ -98,29 +116,14 @@ word_pairs = [meaningful_words[i - 1] + " " + meaningful_words[i] for i in range
 word_triads = [meaningful_words[i - 2] + " " + meaningful_words[i - 1] + " " + meaningful_words[i] for i in range(len(meaningful_words))]
 
 
+# - PRINTING -
+
 duplicate_words = get_duplicates_and_count(meaningful_words)
 print("\nDuplicate list:\n")
 pprint(duplicate_words, sort_dicts=False)
 print("\n")
 
-# TODO: convert to fuction to respect print format
-# Get names (Uppercased words not beacuse of punctuation) that only appear one time
-names = set()
-words_punctuated = nltk.tokenize.word_tokenize(big_example_string)
-word_iterator = iter(words_punctuated)
-punctuation_and_emoji_regex = "(\.|\?|\!|\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])+"
-for word in word_iterator:
-    if re.search(punctuation_and_emoji_regex, word):
-        next(word_iterator, None)
-        continue
-    if word[0].isupper():
-        names.add(word)
-
-unique_names = []
-for name in names:
-    if name not in duplicate_words:
-        unique_names.append(name)
-
+unique_names = get_unique_names(words_punctuated, duplicate_words)
 print("\nUnique names:\n")
 pprint(unique_names)
 print("\n")
@@ -134,4 +137,3 @@ duplicate_triads = get_duplicates_and_count(word_triads)
 print("\nTriad duplicate list:\n")
 pprint(duplicate_triads, sort_dicts=False)
 print("\n")
-
