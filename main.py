@@ -1,4 +1,4 @@
-big_example_string = """
+input_string = """
 
 Descripción
 SG Tech 😎
@@ -51,6 +51,8 @@ import nltk
 from pprint import pprint
 from langdetect import detect
 import re
+import shelve
+import pandas
 
 # --- FUNCTIONS ---
 # Returns the duplicates of a list and the number of times said duplicates appear on the list.
@@ -90,6 +92,7 @@ def get_unique_names(list_of_words, list_of_duplicates):
     for name in names:
         if name not in list_of_duplicates:
             unique_names.append(name)
+    return unique_names
 
 
 # --- END OF FUNCTIONS ---
@@ -98,10 +101,10 @@ def get_unique_names(list_of_words, list_of_duplicates):
 
 # Processing of the input string
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
-words = tokenizer.tokenize(big_example_string)
-words_punctuated = nltk.tokenize.word_tokenize(big_example_string) # Two-tokenizations, can I tokenize and then remove punctuation?
+words = tokenizer.tokenize(input_string)
+words_punctuated = nltk.tokenize.word_tokenize(input_string) # Two-tokenizations, can I tokenize and then remove punctuation?
 
-language_code = detect(big_example_string)
+language_code = detect(input_string)
 language_dic = {'es':'spanish', 'en':'english'}
 stop_words = set(nltk.corpus.stopwords.words(language_dic[language_code]))
  
@@ -137,3 +140,21 @@ duplicate_triads = get_duplicates_and_count(word_triads)
 print("\nTriad duplicate list:\n")
 pprint(duplicate_triads, sort_dicts=False)
 print("\n")
+
+# - Saving in dataframe -
+unique_names_dict = {x: 1 for x in unique_names}
+
+dicts = [
+    duplicate_words,
+    unique_names_dict,
+    duplicate_pairs,
+    duplicate_triads
+]
+dataframes = []
+for dict in dicts:
+    dataframe = pandas.DataFrame.from_dict(dict, 'index')
+    print(dataframe)
+    dataframes.append(dataframe)
+history = pandas.concat(dataframes, axis=0)
+
+print(history)
