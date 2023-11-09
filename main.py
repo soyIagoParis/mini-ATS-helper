@@ -1,85 +1,6 @@
-input_string = """
-Beam Suntory is Crafting the Spirits that Stir the World. Rooted in two centuries of family heritage, Beam Suntory has evolved into the world's third largest leading premium spirits company ... where each employee is treated like family and trusted with legacy. With our greatest assets - our premium spirits and our people - we're driving growth through impactful marketing, innovation and an entrepreneurial spirit. Beam Suntory is a place where you can come Unleash your Spirit by making an impact each and every day.
+input_string2 = """Python Python Python from the depths of dark web. There is a web made of dark web. Iago París Fernández once and again Iago París Fernández. The Spark."""
+input_string = """There was a time when people were mouses, then the Cataclysm came and all died very rightfully. Yeah, all died."""
 
-Junior ML Engineer - Gen AI
-
-What makes this a great opportunity?
-
-The Junior ML Engineer will help to drive Generative AI solutions in the company, working actively in the development of use cases, integrating data from multiple sources, creating data connectors, structuring text for LLM task execution and defining conversational workflows.
-
-This role will work closely with cross-functional teams to develop and implement data-driven solutions that meet business needs. This is a global role to develop and support Gen AI projects across multiple business functions.
-
-Role Responsibilities
-
-Key Responsibilities
-
-
-     Data Integration from multiple sources, including APIs, databases, streaming data, and external datasets and create data connectors and interfaces to facilitate data exchange between systems.
-     Prompt engineering, structuring text in the best way to be understandable for LLM for task execution
-     Define and maintain conversational workflows for Gen AI tools
-     Collaborate with data scientists and AI Data analysts to design data structures that align with business requirements.
-     Maintain comprehensive technical and functional documentation for technical for knowledge sharing and troubleshooting.
-     Stay current with emerging data engineering technologies and tools.
-     Evaluate and recommend new technologies that can improve data engineering processes
-     Identify opportunities where AI technologies can be applied to improve business processes
-     Understand business processes across BSI system´s landscape (SAP ECC, CRM, Reporting)
-
-
-Relationships
-
-
-    Reporting to: Vice President Digital Delivery
-    Direct Reports: Manager Dig.Delivery for Gen AI
-
-    Key Organizational Interfaces:
-        Gen AI Team
-        IT software and cloud engineers
-        IT Solution Architects & Managers
-        Key business Stakeholders (BPOs, Key users)
-
-
-
-
-    Role Dimension:
-        Part of the digital delivery team for Gen AI products and solutions
-
-
-Qualifications
-
-Core Competencies (Maximum 4)
-
-
-     Data Integration
-     Programing in Python
-     Natural Language Processing (NLP)
-
-
-Skills
-
-
-     Advanced in programming languages like Python (desired knowledge of Java, or Scala).
-     Knowledge of SQL and database management systems (e.g., PostgreSQL, MySQL, or NoSQL databases).
-     Desired experience with data warehousing and ETL tools (e.g., Apache Spark, Apache Airflow, or Talend).
-     Familiarity with cloud platforms like AWS, Azure, or Google Cloud.
-     Problem-solving view and analytical skills.
-     Good communication and collaboration skills.
-     Attention to detail and a commitment to data quality and governance.
-
-
-Education/Experience
-
-
-     Bachelor’s degree in computer science, Information Technology, or a related field (Master in AI preferred).
-     At least 1-3 years of experience in ML engineering or a related field with Generative AI.
-     Must be fluent in English language (speak, read, write)
-     Mobility
-
-
-Position based in Madrid (Spain), availability to travel 25% internationally.
-
-At Beam Suntory, people are our number one priority, and we believe our people grow together in diverse and inclusive environments where their unique insights, experiences and backgrounds are valued and respected. Beam Suntory is committed to equal employment opportunity regardless of race, color, ancestry, religion, sex, national origin, sexual orientation, age, citizenship, marital status, disability, gender identity, military veteran status and all other characteristics, attributes or choices protected by law. All recruitment and hiring decisions are based on an applicant’s skills and experience.
-
-"""
 
 import nltk
 from pprint import pprint
@@ -176,8 +97,16 @@ duplicate_triads = get_duplicates_and_count(word_triads)
 # pprint(duplicate_triads, sort_dicts=False)
 # print("\n")
 
-# - Saving in dataframe -
-# TODO: shelve the data
+# - Show in dataframe -
+def get_string_hash(source):
+    if len(source) > 300:
+        return ''.join(input_source[i] for i in range(0,300,10))
+    elif len(source) > 10:
+        return ''.join(input_string[i] for i in range(10))
+    else:
+        raise Exception("Your input string is very small. Use at least 10 characters.") 
+
+
 unique_names_dict = {x: 1 for x in unique_names}
 
 dicts_and_names = [
@@ -188,14 +117,47 @@ dicts_and_names = [
 ]
 dataframes = []
 for dict, name in dicts_and_names:
-    dataframe = pandas.DataFrame.from_dict(dict, 'index')
-    dataframe['Type'] = name
-    dataframe['Source'] = input_string
-    dataframe['Source_hash'] = ''.join(input_string[i] for i in range(10,300,10))
-    dataframes.append(dataframe)
+    if len(dict) > 0:
+        dataframe = pandas.DataFrame.from_dict(dict, 'index')
+        dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
+        dataframe['Type'] = name
+        dataframe['Source'] = input_string
+        dataframe['Source_hash'] = get_string_hash(input_string)
+        print(dataframe)
+        dataframes.append(dataframe)
 
 history = pandas.concat(dataframes, axis=0)
-history.rename(columns={0:'Ocurrences'}, inplace=True)
 
 print("\n")
 print(history)
+
+# Save if hash is not already present
+s = shelve.open('database.db')
+try:
+    if 'history' in s and isinstance(s['history'], pandas.DataFrame):
+        history = s['history']
+        print(history)
+        source_hash = get_string_hash(input_string)
+        if source_hash not in history.Source_hash.unique():
+            dataframes = [history]
+            for dict, name in dicts_and_names:
+                dataframe = pandas.DataFrame.from_dict(dict, 'index')
+                dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
+                dataframe['Type'] = name
+                dataframe['Source'] = input_string
+                dataframe['Source_hash'] = get_string_hash(input_string)
+                dataframes.append(dataframe)
+
+            history = pandas.concat(dataframes, axis=0)
+            history['Ocurrences'] = history['Ocurrences'].astype(int)
+            s['history'] = history
+            print('\nAdded data from: "' + input_string[0:100] + '".')
+        else:
+            print('\nThere is already data from: "' + input_string[0:100] + '".')
+            
+    else: # Create history
+        s['history'] = history
+finally:
+    s.close()
+    print("\n")
+    print(history)
