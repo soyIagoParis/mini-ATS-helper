@@ -123,24 +123,33 @@ temp_history = convert_dicts_to_dataframe(dicts_and_names)
 print("\n")
 print(temp_history)
 
-# Save if hash is not already present
-s = shelve.open('database.db')
-try:
-    if 'history' in s and isinstance(s['history'], pandas.DataFrame):
-        history = s['history']
+# Save into database
+
+print("Do you want to add this analysis to database (y/n):")
+answer = input()
+if answer.lower() == "n":
+    print("\nAnalysis not saved.")
+if answer.lower() == "y":
+    s = shelve.open('database.db')
+    try:
+        if 'history' in s and isinstance(s['history'], pandas.DataFrame):
+            history = s['history']
+            source_hash = get_string_hash(input_string)
+            if source_hash not in history.Source_hash.unique(): # Save only if not already present
+                history = pandas.concat([history, temp_history], axis=0)
+                history['Ocurrences'] = history['Ocurrences'].astype(int)
+                s['history'] = history
+                print('\nAdded data from: "' + input_string[0:100] + '".')
+            else:
+                print('\nThere is already data from: "' + input_string[0:100] + '".')
+                
+        else: # Create history
+            s['history'] = temp_history
+    finally:
+        s.close()
+        print("\n")
         print(history)
-        source_hash = get_string_hash(input_string)
-        if source_hash not in history.Source_hash.unique():
-            history = pandas.concat([history, temp_history], axis=0)
-            history['Ocurrences'] = history['Ocurrences'].astype(int)
-            s['history'] = history
-            print('\nAdded data from: "' + input_string[0:100] + '".')
-        else:
-            print('\nThere is already data from: "' + input_string[0:100] + '".')
-            
-    else: # Create history
-        s['history'] = temp_history
-finally:
-    s.close()
-    print("\n")
-    print(history)
+    
+
+
+
