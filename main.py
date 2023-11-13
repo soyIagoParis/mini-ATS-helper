@@ -54,6 +54,9 @@ def get_unique_names(list_of_words, list_of_duplicates):
 # --- END OF FUNCTIONS ---
 
 # TODO: prompt asking for string
+# TODO: Clean and comment
+print("Introduce the text you want to analyze:")
+input_string = input()
 
 # Processing of the input string
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
@@ -78,24 +81,9 @@ word_triads = [meaningful_words[i - 2] + " " + meaningful_words[i - 1] + " " + m
 # - PRINTING -
 
 duplicate_words = get_duplicates_and_count(meaningful_words)
-# print("\nDuplicate list:\n")
-# pprint(duplicate_words, sort_dicts=False)
-# print("\n")
-
 unique_names = get_unique_names(words_punctuated, duplicate_words)
-# print("\nUnique names:\n")
-# pprint(unique_names)
-# print("\n")
-
 duplicate_pairs = get_duplicates_and_count(word_pairs)
-# print("\nPair duplicate list:\n")
-# pprint(duplicate_pairs, sort_dicts=False)
-# print("\n")
-
 duplicate_triads = get_duplicates_and_count(word_triads)
-# print("\nTriad duplicate list:\n")
-# pprint(duplicate_triads, sort_dicts=False)
-# print("\n")
 
 # - Show in dataframe -
 def get_string_hash(source):
@@ -107,6 +95,7 @@ def get_string_hash(source):
         raise Exception("Your input string is very small. Use at least 10 characters.") 
 
 
+# TODO: There is duplicate code here. Solve that
 unique_names_dict = {x: 1 for x in unique_names}
 
 dicts_and_names = [
@@ -115,21 +104,24 @@ dicts_and_names = [
     (unique_names_dict, 'unique name'),
     (duplicate_words, 'duplicate word')
 ]
-dataframes = []
-for dict, name in dicts_and_names:
-    if len(dict) > 0:
-        dataframe = pandas.DataFrame.from_dict(dict, 'index')
-        dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
-        dataframe['Type'] = name
-        dataframe['Source'] = input_string
-        dataframe['Source_hash'] = get_string_hash(input_string)
-        print(dataframe)
-        dataframes.append(dataframe)
 
-history = pandas.concat(dataframes, axis=0)
+def convert_dicts_to_dataframe(dicts_and_names):
+    dataframes = []
+    for dict, name in dicts_and_names:
+        if len(dict) > 0:
+            dataframe = pandas.DataFrame.from_dict(dict, 'index')
+            dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
+            dataframe['Type'] = name
+            dataframe['Source'] = input_string
+            dataframe['Source_hash'] = get_string_hash(input_string)
+            print(dataframe)
+            dataframes.append(dataframe)
+    return pandas.concat(dataframes, axis=0)
+
+temp_history = convert_dicts_to_dataframe(dicts_and_names)
 
 print("\n")
-print(history)
+print(temp_history)
 
 # Save if hash is not already present
 s = shelve.open('database.db')
@@ -139,16 +131,7 @@ try:
         print(history)
         source_hash = get_string_hash(input_string)
         if source_hash not in history.Source_hash.unique():
-            dataframes = [history]
-            for dict, name in dicts_and_names:
-                dataframe = pandas.DataFrame.from_dict(dict, 'index')
-                dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
-                dataframe['Type'] = name
-                dataframe['Source'] = input_string
-                dataframe['Source_hash'] = get_string_hash(input_string)
-                dataframes.append(dataframe)
-
-            history = pandas.concat(dataframes, axis=0)
+            history = pandas.concat([history, temp_history], axis=0)
             history['Ocurrences'] = history['Ocurrences'].astype(int)
             s['history'] = history
             print('\nAdded data from: "' + input_string[0:100] + '".')
@@ -156,7 +139,7 @@ try:
             print('\nThere is already data from: "' + input_string[0:100] + '".')
             
     else: # Create history
-        s['history'] = history
+        s['history'] = temp_history
 finally:
     s.close()
     print("\n")
