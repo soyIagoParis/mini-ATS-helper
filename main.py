@@ -1,5 +1,5 @@
 input_string2 = """Python Python Python from the depths of dark web. There is a web made of dark web. Iago París Fernández once and again Iago París Fernández. The Spark."""
-input_string = """There was a time when people were mouses, then the Cataclysm came and all died very rightfully. Yeah, all died."""
+input_string1 = """There was a time when people were mouses, then the Cataclysm came and all died very rightfully. Yeah, all died."""
 
 
 import nltk
@@ -50,18 +50,40 @@ def get_unique_names(list_of_words, list_of_duplicates):
             unique_names.append(name)
     return unique_names
 
+# Returns a hash for a text with more than 10 characters dependent on its length
+def get_string_hash(source):
+    if len(source) > 300:
+        return ''.join(input_source[i] for i in range(0,300,10))
+    elif len(source) > 10:
+        return ''.join(input_string[i] for i in range(10))
+    else:
+        raise Exception("Your input string is very small. Use at least 10 characters.") 
+
+# Coverts and array of tuples (dict, name) into a dataframe concatenating them vertically and adding some columns, specifically:
+# type = name
+def convert_dicts_to_dataframe(dicts_and_names):
+    dataframes = []
+    for dict, name in dicts_and_names:
+        if len(dict) > 0:
+            dataframe = pandas.DataFrame.from_dict(dict, 'index')
+            dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
+            dataframe['Type'] = name
+            dataframe['Source'] = input_string
+            dataframe['Source_hash'] = get_string_hash(input_string)
+            print(dataframe)
+            dataframes.append(dataframe)
+    return pandas.concat(dataframes, axis=0)
 
 # --- END OF FUNCTIONS ---
 
-# TODO: prompt asking for string
-# TODO: Clean and comment
 print("Introduce the text you want to analyze:")
-input_string = input()
+# input_string = input()
+input_string = input_string2
 
 # Processing of the input string
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
 words = tokenizer.tokenize(input_string)
-words_punctuated = nltk.tokenize.word_tokenize(input_string) # Two-tokenizations, can I tokenize and then remove punctuation?
+words_punctuated = nltk.tokenize.word_tokenize(input_string) # TODO: Two-tokenizations, can I tokenize and then remove punctuation?
 
 language_code = detect(input_string)
 language_dic = {'es':'spanish', 'en':'english'}
@@ -78,25 +100,12 @@ word_pairs = [meaningful_words[i - 1] + " " + meaningful_words[i] for i in range
 word_triads = [meaningful_words[i - 2] + " " + meaningful_words[i - 1] + " " + meaningful_words[i] for i in range(len(meaningful_words))]
 
 
-# - PRINTING -
-
+# Formatting to dataframe TODO: ¿can I skip the dict part?
 duplicate_words = get_duplicates_and_count(meaningful_words)
 unique_names = get_unique_names(words_punctuated, duplicate_words)
+unique_names_dict = {x: 1 for x in unique_names}
 duplicate_pairs = get_duplicates_and_count(word_pairs)
 duplicate_triads = get_duplicates_and_count(word_triads)
-
-# - Show in dataframe -
-def get_string_hash(source):
-    if len(source) > 300:
-        return ''.join(input_source[i] for i in range(0,300,10))
-    elif len(source) > 10:
-        return ''.join(input_string[i] for i in range(10))
-    else:
-        raise Exception("Your input string is very small. Use at least 10 characters.") 
-
-
-# TODO: There is duplicate code here. Solve that
-unique_names_dict = {x: 1 for x in unique_names}
 
 dicts_and_names = [
     (duplicate_triads, 'duplicate triad'),
@@ -105,30 +114,17 @@ dicts_and_names = [
     (duplicate_words, 'duplicate word')
 ]
 
-def convert_dicts_to_dataframe(dicts_and_names):
-    dataframes = []
-    for dict, name in dicts_and_names:
-        if len(dict) > 0:
-            dataframe = pandas.DataFrame.from_dict(dict, 'index')
-            dataframe.rename(columns={0:'Ocurrences'}, inplace=True)
-            dataframe['Type'] = name
-            dataframe['Source'] = input_string
-            dataframe['Source_hash'] = get_string_hash(input_string)
-            print(dataframe)
-            dataframes.append(dataframe)
-    return pandas.concat(dataframes, axis=0)
-
 temp_history = convert_dicts_to_dataframe(dicts_and_names)
 
-print("\n")
+print("\nRESULTS OF THE TEXT ANALYSIS:\n")
 print(temp_history)
 
 # Save into database
 
-print("Do you want to add this analysis to database (y/n):")
+print("Do you want to add this results to database (y/n):")
 answer = input()
 if answer.lower() == "n":
-    print("\nAnalysis not saved.")
+    print("\nResults not saved.")
 if answer.lower() == "y":
     s = shelve.open('database.db')
     try:
@@ -146,9 +142,9 @@ if answer.lower() == "y":
         else: # Create history
             s['history'] = temp_history
     finally:
+        print("\nCOMPLETE HISTORY:\n")
+        print(s['history'])
         s.close()
-        print("\n")
-        print(history)
     
 
 
