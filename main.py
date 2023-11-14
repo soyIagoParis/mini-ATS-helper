@@ -53,7 +53,7 @@ def get_unique_names(list_of_words, list_of_duplicates):
 # Returns a hash for a text with more than 10 characters dependent on its length
 def get_string_hash(source):
     if len(source) > 300:
-        return ''.join(input_source[i] for i in range(0,300,10))
+        return ''.join(input_string[i] for i in range(0,300,10))
     elif len(source) > 10:
         return ''.join(input_string[i] for i in range(10))
     else:
@@ -70,15 +70,16 @@ def convert_dicts_to_dataframe(dicts_and_names):
             dataframe['Type'] = name
             dataframe['Source'] = input_string
             dataframe['Source_hash'] = get_string_hash(input_string)
-            print(dataframe)
             dataframes.append(dataframe)
     return pandas.concat(dataframes, axis=0)
 
 # --- END OF FUNCTIONS ---
 
-print("Introduce the text you want to analyze:")
-# input_string = input()
-input_string = input_string2
+with open('./text_input.txt', encoding="utf8") as f:
+    input_string=''.join(line for line in f)
+
+print("Analyzing the following text:")
+print(input_string)
 
 # Processing of the input string
 tokenizer = nltk.tokenize.RegexpTokenizer(r'\w+') # removes punctuation
@@ -145,6 +146,10 @@ if answer.lower() == "y":
         print("\nCOMPLETE HISTORY:\n")
         print(s['history'])
         s.close()
+
+# Clean input text file
+# text_input = open("./text_input.txt",'w')
+# text_input.close() 
     
 
 

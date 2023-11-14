@@ -1,0 +1,85 @@
+
+
+¿Eres un apasionad@ de la programación y del procesamiento de datos? ¿Te gusta el procesamiento en streaming? ¿Eres inquiet@ y siempre buscas mejorar?
+
+En idealista estamos buscando un ingenier@ de datos para nuestro equipo de tecnología.
+
+Si te gusta estar rodead@ de buen@s compañer@s, trabajar con buen rollo y en un ambiente colaborativo ¡sigue leyendo! Seguro que idealista te va a gustar ;)
+
+
+¿Qué harás?
+
+•     Trabajar junto a tus compañer@s del equipo haciendo crecer la infraestructura de datos
+
+•     Desarrollar con Apache Flink y scala, entre otras tecnologías, procesos en streaming para proveer de datos al resto de equipos
+
+•     Ayudar al equipo de científicos de datos tanto a la ingesta como a la puesta en producción de los modelos
+
+•     Trabajar codo con codo con el equipo de plataforma y el resto de equipos de desarrollo para desplegar componentes asegurando su escalabilidad, alta disponibilidad y correcta monitorización
+
+
+¿Qué te ofrecemos?
+
+Ahí va:
+
+•     Podrás ver el impacto directo de tu trabajo en una de las webs de referencia tanto en España, como en Italia y Portugal. Para los que no lo hayáis vivido ya: no sabéis el cosquilleo que da en la tripa la primera vez que ves algo que has hecho en una plataforma que utilizan millones de personas
+
+•     Oficinas en el centro de Madrid y distribuídas en entornos de trabajo colaborativos
+
+•     Somos Remote Friendly :)
+
+•     Vas a aprender. Lo decimos en serio. La plataforma va evolucionando constantemente, y de ahí sacamos mogollón de charlas internas, posts, talleres… que hacen que el conocimiento fluya
+
+•     Además… patrocinamos eventos, acudimos a ellos y hacemos meetups en la oficina. ¡Es tan importante aprender como enseñar a tus compis!
+
+•     Además de tu salario, podrás acogerte a un plan de retribución flexible (tarjeta de transporte, cheques gourmet, seguro médico…) del que te podrás beneficiar desde el primer día
+
+•     Clases de Inglés, italiano y portugués
+
+•     Fruta fresca y café siempre disponible en la cocina.
+
+•     ¡También tenemos fisio y clases de yoga en la oficina… porque para nosotros lo más importante es cuidar de nuestros idealistas!
+
+•     Además de trabajar, nos gusta pasarlo bien, por eso que si te unes a nuestras familia, cada mes celebrarás algo…Halloween, San Valentín, Navidad,…¡Te lo vas a pasar muy bien!
+
+•     Relocation en tus primeros días en Madrid, sabemos que cambiar de casa no es una tarea sencilla
+
+
+¿Qué esperamos de ti?
+
+ 
+
+Sobre todo que te apasione el mundo de los datos, pero además no estaría mal si:
+
+•     Tienes experiencia en el procesamiento de datos, y nos puedes hablar de ello
+
+•     Has trabajado con herramientas como Flink, Spark, Storm, Beam, Kstream...
+
+•     Te has peleado alguna vez con temas de infraestructura
+
+•     No subes nada si no tiene test. Sí, todos nuestros procesos de datos como no, tienen test :P
+
+•     Si no tienes ninguna experiencia en procesamiento de datos, pero eres un backend experimentado con una base sólida en “best pratices”, arquitectura hexagonal, servicios, y quieres un cambio, también queremos conocerte
+
+•     Nosotr@s trabajamos en equipo. El equipo son tus compañer@s; pero también lo es la gente de producto así como la gente de negocio, etc.
+
+•     Te gusta este mundillo. Y te encanta saber que vas a tener que estar aprendiendo durante toda tu vida laboral. Además, eres lo suficientemente humilde como para aceptar las enseñanzas de tus compañeros, y lo suficientemente generoso como para compartir con ellos tu conocimiento :)
+
+•     Tienes curiosidad e iniciativa. Al final, este trabajo va de los problemas que somos capaces de resolver y de cómo logramos hacerlo. Así que se espera de ti que seas capaz de analizar, preguntar, pedir ayuda (y ofrecerla), y saber plantear soluciones a los mismos.
+
+¿Qué otras cosas son un plus?
+
+•     Tienes conocimiento y has trabajado con eventos
+
+•     Conoces y has usado bases de datos columnares
+
+•     Conoces y has usado Kafka, PrestoSQL, ElasticSearch
+
+•     Te manejas bien con la programación funcional
+
+•     Has participado en algún proyecto de datos desde 0
+
+
+Estamos deseando conocerte y que nos conozcas.
+
+¿Aceptas el reto?
