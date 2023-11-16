@@ -1,85 +1,36 @@
+About Revolut
 
+People deserve more from their money. More visibility, more control, more freedom. And since 2015, Revolut has been on a mission to deliver just that. With an arsenal of aweso﻿me products that span spending, saving, travel, transfers, investing, exchanging and more, our super app has helped 35+ million customers get more from their money. And we're not done yet.
 
-¿Eres un apasionad@ de la programación y del procesamiento de datos? ¿Te gusta el procesamiento en streaming? ¿Eres inquiet@ y siempre buscas mejorar?
+As we continue our lightning-fast growth,‌ two things are essential to continuing our success: our people and our culture. We've been officially certified as a Great Place to Work™ in recognition of our outstanding employee experience! So far, we have 6,000+ people working around the world, from our great offices or remotely, on our mission. And we're looking for more. We want brilliant people that love building great products, love redefining success, and love turning the complexity of a chaotic world into the simplicity of a beautiful solution.
 
-En idealista estamos buscando un ingenier@ de datos para nuestro equipo de tecnología.
+About the role
 
-Si te gusta estar rodead@ de buen@s compañer@s, trabajar con buen rollo y en un ambiente colaborativo ¡sigue leyendo! Seguro que idealista te va a gustar ;)
+We approach Data Science at Revolut the same way that we approach everything else. We take complex problems, and create extraordinary solutions that our customers love. Our Data Analysts aren’t kept in the background, doomed to never see the impact of their work. They’re some of our best and brightest problem solvers, deployed to the front-lines to work in Product Teams and deliver rock star solutions 🤘
 
+We’re looking for a superstar Data Analyst who does not believe there is a data task that can be too hard 🦬 From digging into our complex databases, looking for the root cause of a problem to designing their own solutions and writing their own code to implement them. In this process they never stop learning, picking up new skills and delivering value ✨
 
-¿Qué harás?
+Up for the challenge? Get in touch 👇
 
-•     Trabajar junto a tus compañer@s del equipo haciendo crecer la infraestructura de datos
+What you’ll be doing
 
-•     Desarrollar con Apache Flink y scala, entre otras tecnologías, procesos en streaming para proveer de datos al resto de equipos
+    Understanding our business and its processes through our data
+    Applying this understanding and knowledge of data to help product and services teams
+    Developing documentation and data governance
+    Owning the entire ETL process
+    Designing key metrics to measure different aspects of the business
+    Creating and maintaining new aggregated views and tables to simplify data querying
+    Providing clean data sets to end users, modeling data in a way that empowers end users to answer their own questions
 
-•     Ayudar al equipo de científicos de datos tanto a la ingesta como a la puesta en producción de los modelos
+What you'll need
 
-•     Trabajar codo con codo con el equipo de plataforma y el resto de equipos de desarrollo para desplegar componentes asegurando su escalabilidad, alta disponibilidad y correcta monitorización
+    Previous experience in an analytical role, creating impactful solutions
+    Strong background/education in a quantitative discipline
+    Great skills with Python, SQL, or other programming languages
+    Evidence of strong mathematical and statistics knowledge
 
+Nice to have
 
-¿Qué te ofrecemos?
-
-Ahí va:
-
-•     Podrás ver el impacto directo de tu trabajo en una de las webs de referencia tanto en España, como en Italia y Portugal. Para los que no lo hayáis vivido ya: no sabéis el cosquilleo que da en la tripa la primera vez que ves algo que has hecho en una plataforma que utilizan millones de personas
-
-•     Oficinas en el centro de Madrid y distribuídas en entornos de trabajo colaborativos
-
-•     Somos Remote Friendly :)
-
-•     Vas a aprender. Lo decimos en serio. La plataforma va evolucionando constantemente, y de ahí sacamos mogollón de charlas internas, posts, talleres… que hacen que el conocimiento fluya
-
-•     Además… patrocinamos eventos, acudimos a ellos y hacemos meetups en la oficina. ¡Es tan importante aprender como enseñar a tus compis!
-
-•     Además de tu salario, podrás acogerte a un plan de retribución flexible (tarjeta de transporte, cheques gourmet, seguro médico…) del que te podrás beneficiar desde el primer día
-
-•     Clases de Inglés, italiano y portugués
-
-•     Fruta fresca y café siempre disponible en la cocina.
-
-•     ¡También tenemos fisio y clases de yoga en la oficina… porque para nosotros lo más importante es cuidar de nuestros idealistas!
-
-•     Además de trabajar, nos gusta pasarlo bien, por eso que si te unes a nuestras familia, cada mes celebrarás algo…Halloween, San Valentín, Navidad,…¡Te lo vas a pasar muy bien!
-
-•     Relocation en tus primeros días en Madrid, sabemos que cambiar de casa no es una tarea sencilla
-
-
-¿Qué esperamos de ti?
-
- 
-
-Sobre todo que te apasione el mundo de los datos, pero además no estaría mal si:
-
-•     Tienes experiencia en el procesamiento de datos, y nos puedes hablar de ello
-
-•     Has trabajado con herramientas como Flink, Spark, Storm, Beam, Kstream...
-
-•     Te has peleado alguna vez con temas de infraestructura
-
-•     No subes nada si no tiene test. Sí, todos nuestros procesos de datos como no, tienen test :P
-
-•     Si no tienes ninguna experiencia en procesamiento de datos, pero eres un backend experimentado con una base sólida en “best pratices”, arquitectura hexagonal, servicios, y quieres un cambio, también queremos conocerte
-
-•     Nosotr@s trabajamos en equipo. El equipo son tus compañer@s; pero también lo es la gente de producto así como la gente de negocio, etc.
-
-•     Te gusta este mundillo. Y te encanta saber que vas a tener que estar aprendiendo durante toda tu vida laboral. Además, eres lo suficientemente humilde como para aceptar las enseñanzas de tus compañeros, y lo suficientemente generoso como para compartir con ellos tu conocimiento :)
-
-•     Tienes curiosidad e iniciativa. Al final, este trabajo va de los problemas que somos capaces de resolver y de cómo logramos hacerlo. Así que se espera de ti que seas capaz de analizar, preguntar, pedir ayuda (y ofrecerla), y saber plantear soluciones a los mismos.
-
-¿Qué otras cosas son un plus?
-
-•     Tienes conocimiento y has trabajado con eventos
-
-•     Conoces y has usado bases de datos columnares
-
-•     Conoces y has usado Kafka, PrestoSQL, ElasticSearch
-
-•     Te manejas bien con la programación funcional
-
-•     Has participado en algún proyecto de datos desde 0
-
-
-Estamos deseando conocerte y que nos conozcas.
-
-¿Aceptas el reto?
+    An advanced degree in a core STEM subject
+    Strong experience with additional programming languages (Java, Scala, C++, etc.)
+    School/University Olympic medal competitions in Physics, Maths, Economics, or Programming
